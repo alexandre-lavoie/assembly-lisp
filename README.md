@@ -38,8 +38,14 @@ Flags and registers are simply variables. Registers found in the functions can b
 #### Characters
 
 ```
-(CHR Register Line Character) - Reads ROM Nth Character of Line and Sets Register
-(CNT Register Character) - Get Integer Value of Character and Sets Register
+(CHR Register Line Character) - Reads ROM Nth Character of Line and Sets Register.
+(CNT Register Character) - Get Integer Value of Character and Sets Register.
+```
+
+#### Input
+
+```
+(RD Register) - Reads Line and Sets Register.
 ```
 
 #### Jumps
@@ -71,6 +77,7 @@ Flags and registers are simply variables. Registers found in the functions can b
 #### Output
 
 ```
+(FUT Register/Value Body) - Format Out Using Register/Value Template.
 (OUT Register) - Outputs Value of Register.
 (RUT) - Outputs RAM.
 ```
@@ -90,13 +97,25 @@ Flags and registers are simply variables. Registers found in the functions can b
 (STR Register/Value Register/Address) - Stores Register/Value at RAM Register/Address.
 ```
 
+#### ROM
+
+```
+(LDR Register Address) - Loads ROM Address Integer to Register.
+(LDS Register Address) - Loads ROM Address Value to Register.
+```
+
 #### Register
 
 ```
 (CPR Register Register/Value) - Compares Registers and/or Value and Set Equivalence Flag.
 (LDI Register Value) - Loads Value to Register.
-(LDR Register Address) - Loads ROM Adddress Value to Register.
 (MOV Register1 Register2) - Moves Value from Register1 to Register2.
+```
+
+#### String
+
+```
+(SNT Register String) - String to Int and Sets Register.
 ```
 
 ## Sample Code
@@ -115,4 +134,10 @@ Flags and registers are simply variables. Registers found in the functions can b
 
 Finds the Fibonacci Sequence.
 
-_Other sample codes in example folder._
+## Example Code
+
+* Fibonacci.lisp - Find Fibonacci Sequence.
+* Math.lisp - Multiplication, Exponent, and Division of Whole Numbers Operation.
+* Name.lisp - Asks for Name and Returns Name.
+* RAM-Number.lisp - Numbers RAM from 0-256 and Multiplies by two.
+* ROMMap-RAM.lisp - Gets Characters on a Line and Sets it to RAM.

@@ -24,6 +24,7 @@
 (defmacro CHR (register line character) `(setf ,register (char (nth (- ,line 1) file) ,character))) ;;Reads ROM Nth Character of Line and Sets Register
 (defmacro CNT (register character) `(setf ,register (char-int ,character))) ;;Character to Integer
 (defmacro CPR (register registervalue) `(if (= ,register ,registervalue) (setf *e* 1) (setf *e* 0))) ;;Compare Registers/Value
+(defmacro FUT (registervalue &body body) `(format t ,registervalue ,@body)) ;;Format Output
 (defun HLT () (setf *h* 1)) ;;Halt Program
 (defun JC (address) (if (= *y* 1) (progn (setf *c* (- address 1)) (setf *y* 0)))) ;;Jump If Carry Flag On
 (defmacro JE (address) (if (= *e* 1) (progn (setf *c* (- address 1)) (setf *e* 0)))) ;;Jump if Equivalent
@@ -35,15 +36,18 @@
 (defun JZ (address) (if (= *z* 1) (progn (setf *c* (- address 1)) (setf *z* 0)))) ;;Jump If Zero Flag On
 (defun JRZ (offset) (if (= *z* 1) (progn (setf *c* (- (+ *c* offset) 1)) (setf *z* 0)))) ;;Jump Relative If Zero Flag On
 (defmacro LDI (register v) `(setf ,register ,v)) ;;Load Value to Register
-(defmacro LDR (register address) `(setf ,register (parse-integer (nth ,address file)))) ;;Load from ROM to Register
+(defmacro LDR (register address) `(setf ,register (parse-integer (nth (- ,address 1) file)))) ;;Load from ROM to Register
+(defmacro LDS (register address) `(setf ,register (nth (- ,address 1) file))) ;;Load Actual from ROM to Register
 (defun MX (v) (setf *max-bit* v));;Sets Maximum to Trigger Carry Flag
 (defmacro MOV (register1 register2) `(setf ,register2 ,register1)) ;;Move Register 1 to Register 2
 (defun NOP ()) ;;No Operation
 (defmacro OUT (register) `(print ,register)) ;;Output Register
+(defmacro RD (register) `(setf ,register (read))) ;;Read To Register
 (defun RUT () (print *r*)) ;;Print RAM
 (defmacro RTR (registeroutput registeraddress) `(setf ,registeroutput (aref *r* ,registeraddress))) ;;Read RAM at Register/Address to RegisterOutput
 (defmacro SBR (register address) `(progn (setf *s* (aref *r* ,address)) (setf *s* (- ,register *s*)) (setf ,register *s*) (if (<= *s* 0) (setf *z* 1) (setf *z* 0)))) ;;Substract RAM to Register and Set Register
 (defmacro SBI (register registervalue) `(progn (setf *s* ,v) (setf *s* (- ,register *s*)) (setf ,register *s*) (if (<= *s* 0) (setf *z* 1) (setf *z* 0)))) ;;Substract Value to Register and Set Register
+(defmacro SNT (register string) `(setf ,register (parse-integer ,string))) ;; String to Int
 (defmacro STR (registervalue registeraddress) `(setf (aref *r* ,registeraddress) ,registervalue)) ;;Stores Register/Value at Register/Address to RAM
 (defmacro SUB (register address) `(progn (setf *s* (parse-integer (nth (- ,address 1) file))) (setf *s* (- ,register *s*)) (setf ,register *s*) (if (<= *s* 0) (setf *z* 1) (setf *z* 0)))) ;;Substract ROM to Register and Set Register
 

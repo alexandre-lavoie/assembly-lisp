@@ -21,7 +21,7 @@
 (JR *j*)
 --DIVISION--
 (STR *j* 0)
-(SVR 0 3)
+(STR 0 3)
 (STR *a* 4)
 (STR *b* 5)
 (RTR *x* 3)
